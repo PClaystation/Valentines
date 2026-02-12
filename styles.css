@@ -354,6 +354,11 @@ img {
   transform-origin: center;
 }
 
+.day-4-image {
+  overflow: hidden;
+  border-radius: 1rem;
+}
+
 .day-5-image {
   overflow: hidden;
   border-radius: 1rem;
