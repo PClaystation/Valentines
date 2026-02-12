@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Valentine Story</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body class="is-locked">
+    <!-- ACCESS / LANDING SCREEN -->
+    <main id="access-screen" class="screen">
+      <section class="gate-card">
+        <h1>Prove it's you:</h1>
+        <!-- Replace this with your unique question -->
+        <p id="gate-question">PLACEHOLDER: Your unique-to-us question goes here.</p>
+
+        <form id="access-form" novalidate>
+          <label class="sr-only" for="answer-input">Answer</label>
+          <input
+            id="answer-input"
+            name="answer"
+            type="text"
+            autocomplete="off"
+            placeholder="Type your answer"
+            required
+          />
+          <button type="submit">Enter</button>
+          <p id="gate-error" class="error" role="alert" aria-live="polite"></p>
+        </form>
+      </section>
+    </main>
+
+    <!-- MAIN EXPERIENCE -->
+    <div id="experience" class="experience" aria-hidden="true">
+      <header class="hero reveal">
+        <p class="eyebrow">Seven Days   --   One journey</p>
+        <h2>That Week</h2>
+        <p>Seven days - Seven stories - One POV</p>
+      </header>
+
+      <!-- DAY 1 -->
+      <section id="day-1" class="story-section day-section">
+        <div class="story-content day-layout">
+          <header class="day-heading reveal">
+            <p class="day-kicker">Day 1</p>
+            <h3 class="day-title">The walk</h3>
+          </header>
+          <article class="story-text day-panel day-panel-main reveal">
+            <p class="panel-label">What Happened</p>
+            <p>
+              PLACEHOLDER: Long-form story text about everything that happened during day one.
+              Include where you were, what unfolded, and why this day mattered.
+            </p>
+          </article>
+          <article class="story-text day-panel day-panel-small reveal">
+            <p class="panel-label">What I Thought (But Didn't Say)</p>
+            <p>
+              PLACEHOLDER: A shorter note about what you were really thinking but kept to yourself.
+            </p>
+          </article>
+          <article class="story-text day-panel day-panel-small reveal">
+            <p class="panel-label">What I Told ChatGPT</p>
+            <p>
+              PLACEHOLDER: What you were talking about with ChatGPT during this day.
+            </p>
+          </article>
+          <figure class="story-image day-image reveal">
+            <!-- Replace with your own image -->
+            <img src="placeholder-day-1.jpg" alt="PLACEHOLDER: Day 1 image" />
+            <figcaption>PLACEHOLDER: Day 1 caption text.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <!-- DAY 2 -->
+      <section id="day-2" class="story-section day-section">
+        <div class="story-content day-layout">
+          <header class="day-heading reveal">
+            <p class="day-kicker">Day 2</p>
+            <h3 class="day-title">My house</h3>
+          </header>
+          <article class="story-text day-panel day-panel-main reveal">
+            <p class="panel-label">What Happened</p>
+            <p>
+              PLACEHOLDER: Long-form story text about everything that happened during day two.
+              Describe the setting, timing, and key moments.
+            </p>
+          </article>
+          <article class="story-text day-panel day-panel-small reveal">
+            <p class="panel-label">What I Thought (But Didn't Say)</p>
+            <p>
+              PLACEHOLDER: A shorter private thought from this day that you did not say out loud.
+            </p>
+          </article>
+          <article class="story-text day-panel day-panel-small reveal">
+            <p class="panel-label">What I Told ChatGPT</p>
+            <p>
+              PLACEHOLDER: What you were discussing with ChatGPT during day two.
+            </p>
+          </article>
+          <figure class="story-image day-image reveal">
+            <!-- Replace with your own image -->
+            <img src="Images/Faces.jpeg" alt="PLACEHOLDER: Day 2 image" />
+            <figcaption>PLACEHOLDER: Day 2 caption text.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <!-- DAY 3 -->
+      <section id="day-3" class="story-section day-section">
+        <div class="story-content day-layout">
+          <header class="day-heading reveal">
+            <p class="day-kicker">Day 3</p>
+            <h3 class="day-title">Photoshoot</h3>
+          </header>
+          <article class="story-text day-panel day-panel-main reveal">
+            <p class="panel-label">What Happened</p>
+            <p>
+              PLACEHOLDER: Long-form story text about everything that happened during day three.
+              Cover the highlights and emotional tone of the day.
+            </p>
+          </article>
+          <article class="story-text day-panel day-panel-small reveal">
+            <p class="panel-label">What I Thought (But Didn't Say)</p>
+            <p>
+              PLACEHOLDER: A shorter internal thought you had during this day.
+            </p>
+          </article>
+          <article class="story-text day-panel day-panel-small reveal">
+            <p class="panel-label">What I Told ChatGPT</p>
+            <p>
+              PLACEHOLDER: What you were talking about with ChatGPT during day three.
+            </p>
+          </article>
+          <figure class="story-image day-image day-3-image reveal">
+            <!-- Replace with your own image -->
+            <img src="Images/Lilo.jpeg" alt="PLACEHOLDER: Day 3 image" />
+            <figcaption>PLACEHOLDER: Day 3 caption text.</figcaption>
+          </figure>
+          <figure class="story-image day-image day-3-image reveal">
+            <!-- Replace with your own image -->
+            <img src="Images/Lilo.jpeg" alt="PLACEHOLDER: Day 3 second image" />
+            <figcaption>PLACEHOLDER: Day 3 second caption text.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <!-- DAY 4 -->
+      <section id="day-4" class="story-section day-section">
+        <div class="story-content day-layout">
+          <header class="day-heading reveal">
+            <p class="day-kicker">Day 4</p>
+            <h3 class="day-title">A shift</h3>
+          </header>
+          <article class="story-text day-panel day-panel-main reveal">
+            <p class="panel-label">What Happened</p>
+            <p>
+              PLACEHOLDER: Long-form story text about everything that happened during day four.
+              Include the transition moments and how the day evolved.
+            </p>
+          </article>
+          <article class="story-text day-panel day-panel-small reveal">
+            <p class="panel-label">What I Thought (But Didn't Say)</p>
+            <p>
+              PLACEHOLDER: A shorter thought from day four that stayed unspoken.
+            </p>
+          </article>
+          <article class="story-text day-panel day-panel-small reveal">
+            <p class="panel-label">What I Told ChatGPT</p>
+            <p>
+              PLACEHOLDER: What you shared with ChatGPT during day four.
+            </p>
+          </article>
+          <figure class="story-image day-image day-4-image reveal">
+            <!-- Replace with your own image -->
+            <img src="Images/image.png" alt="PLACEHOLDER: Day 4 image" />
+            <figcaption>PLACEHOLDER: Day 4 caption text.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <!-- DAY 5 -->
+      <section id="day-5" class="story-section day-section">
+        <div class="story-content day-layout">
+          <header class="day-heading reveal">
+            <p class="day-kicker">Day 5</p>
+            <h3 class="day-title">Bowling</h3>
+          </header>
+          <article class="story-text day-panel day-panel-main reveal">
+            <p class="panel-label">What Happened</p>
+            <p>
+              PLACEHOLDER: Long-form story text about everything that happened during day five.
+              Include both the fun details and the emotional context.
+            </p>
+          </article>
+          <article class="story-text day-panel day-panel-small reveal">
+            <p class="panel-label">What I Thought (But Didn't Say)</p>
+            <p>
+              PLACEHOLDER: A shorter unspoken thought from day five.
+            </p>
+          </article>
+          <article class="story-text day-panel day-panel-small reveal">
+            <p class="panel-label">What I Told ChatGPT</p>
+            <p>
+              PLACEHOLDER: What you talked through with ChatGPT during day five.
+            </p>
+          </article>
+          <figure class="story-image day-image day-5-image reveal">
+            <!-- Replace with your own image -->
+            <img src="Images/Walk copy.png" alt="PLACEHOLDER: Day 5 image" />
+            <figcaption>PLACEHOLDER: Day 5 caption text.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <!-- DAY 6 -->
+      <section id="day-6" class="story-section day-section">
+        <div class="story-content day-layout">
+          <header class="day-heading reveal">
+            <p class="day-kicker">Day 6</p>
+            <h3 class="day-title">Soy bed incident</h3>
+          </header>
+          <article class="story-text day-panel day-panel-main reveal">
+            <p class="panel-label">What Happened</p>
+            <p>
+              PLACEHOLDER: Long-form story text about everything that happened during day six.
+              Explain the full context and mood of the day.
+            </p>
+          </article>
+          <article class="story-text day-panel day-panel-small reveal">
+            <p class="panel-label">What I Thought (But Didn't Say)</p>
+            <p>
+              PLACEHOLDER: A shorter private thought from day six.
+            </p>
+          </article>
+          <article class="story-text day-panel day-panel-small reveal">
+            <p class="panel-label">What I Told ChatGPT</p>
+            <p>
+              PLACEHOLDER: What you were writing to ChatGPT during day six.
+            </p>
+          </article>
+          <figure class="story-image day-image reveal">
+            <!-- Replace with your own image -->
+            <img src="Images/Confirmation.png" alt="PLACEHOLDER: Day 6 image" />
+            <figcaption>PLACEHOLDER: Day 6 caption text.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <!-- DAY 7 -->
+      <section id="day-7" class="story-section day-section">
+        <div class="story-content day-layout">
+          <header class="day-heading reveal">
+            <p class="day-kicker">Day 7</p>
+            <h3 class="day-title">Stay</h3>
+          </header>
+          <article class="story-text day-panel day-panel-main reveal">
+            <p class="panel-label">What Happened</p>
+            <p>
+              PLACEHOLDER: Long-form story text about everything that happened during day seven.
+              This should feel like the final day chapter.
+            </p>
+          </article>
+          <article class="story-text day-panel day-panel-small reveal">
+            <p class="panel-label">What I Thought (But Didn't Say)</p>
+            <p>
+              PLACEHOLDER: A short, honest thought you carried through day seven.
+            </p>
+          </article>
+          <article class="story-text day-panel day-panel-small reveal">
+            <p class="panel-label">What I Told ChatGPT</p>
+            <p>
+              PLACEHOLDER: What you were discussing with ChatGPT during day seven.
+            </p>
+          </article>
+          <figure class="story-image day-image reveal">
+            <!-- Replace with your own image -->
+            <img src="placeholder-day-7.jpg" alt="PLACEHOLDER: Day 7 image" />
+            <figcaption>PLACEHOLDER: Day 7 caption text.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <!-- CONCLUSION / LOVE LETTER -->
+      <section id="love-letter" class="story-section conclusion-section">
+        <div class="story-content single-column">
+          <article class="conclusion-card reveal">
+            <p class="day-kicker">Final Words</p>
+            <h3>PLACEHOLDER: Your message title for her</h3>
+            <p>
+              PLACEHOLDER: Write about how much you love her, what she means to you, and how
+              grateful you are for every moment together.
+            </p>
+            <p>
+              PLACEHOLDER: Add a personal promise, a memory callback, or what you look forward to
+              in the future with her.
+            </p>
+            <p class="conclusion-signoff">PLACEHOLDER: With love, [your name]</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- FINAL HIDDEN MESSAGE -->
+      <section id="secret-section" class="story-section">
+        <div class="story-content single-column">
+          <div class="story-text reveal">
+            <p
+              id="secret-trigger"
+              class="secret-trigger"
+              role="button"
+              tabindex="0"
+              aria-pressed="false"
+            >
+              PLACEHOLDER: tiny label (tap 5 times)
+            </p>
+            <div id="secret-message" class="secret-message" hidden>
+              <h3>Hidden Message</h3>
+              <p>PLACEHOLDER: Your final hidden note appears here.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>
