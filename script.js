@@ -8,9 +8,11 @@ const answerInput = document.getElementById("answer-input");
 const gateError = document.getElementById("gate-error");
 const secretTrigger = document.getElementById("secret-trigger");
 const secretMessage = document.getElementById("secret-message");
+const secretTriggerLabel = "psst";
+const secretTriggerPrompts = ["Är du säker?", "100%?", "Verkligen?", "Sista chansen..."];
+const secretTriggerFinalLabel = "Om du säger så";
 
 let secretTapCount = 0;
-const requiredTaps = 5;
 let progressUpdateQueued = false;
 let progressTrackingActive = false;
 
@@ -195,23 +197,20 @@ function handleSecretReveal() {
   }
 
   secretTapCount += 1;
-  const tapsRemaining = requiredTaps - secretTapCount;
 
-  if (tapsRemaining > 0) {
-    secretTrigger.textContent =
-      tapsRemaining === 1
-        ? "PLACEHOLDER: one more tap to reveal"
-        : `PLACEHOLDER: ${tapsRemaining} more taps`;
+  if (secretTapCount <= secretTriggerPrompts.length) {
+    secretTrigger.textContent = secretTriggerPrompts[secretTapCount - 1];
     return;
   }
 
   secretMessage.hidden = false;
   secretTrigger.classList.add("unlocked");
   secretTrigger.setAttribute("aria-pressed", "true");
-  secretTrigger.textContent = "PLACEHOLDER: Secret unlocked";
+  secretTrigger.textContent = secretTriggerFinalLabel;
 }
 
 if (secretTrigger && secretMessage) {
+  secretTrigger.textContent = secretTriggerLabel;
   secretTrigger.addEventListener("click", handleSecretReveal);
   secretTrigger.addEventListener("keydown", (event) => {
     if (event.key !== "Enter" && event.key !== " ") {
