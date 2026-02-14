@@ -1,4 +1,4 @@
-const ACCESS_ANSWER = "123";
+const ACCESS_ANSWER = "Charlie";
 
 const body = document.body;
 const accessScreen = document.getElementById("access-screen");
@@ -12,6 +12,10 @@ const secretMessage = document.getElementById("secret-message");
 let secretTapCount = 0;
 const requiredTaps = 5;
 let progressUpdateQueued = false;
+let progressTrackingActive = false;
+
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+const isMobileViewport = window.matchMedia("(max-width: 900px), (pointer: coarse)").matches;
 
 function normalizeValue(value) {
   return value.trim().toLowerCase();
@@ -22,11 +26,16 @@ function checkAccessAnswer(answer) {
 }
 
 function unlockExperience() {
-  gateError.textContent = "";
+  if (!accessScreen || !experience) {
+    return;
+  }
+
+  showError("");
   accessScreen.classList.add("hidden");
   experience.classList.add("active");
   experience.setAttribute("aria-hidden", "false");
   body.classList.remove("is-locked");
+  startScrollTracking();
 
   window.setTimeout(() => {
     accessScreen.setAttribute("hidden", "");
@@ -34,18 +43,27 @@ function unlockExperience() {
 }
 
 function showError(message) {
+  if (!gateError) {
+    return;
+  }
+
   gateError.textContent = message;
 }
 
 function updateScrollProgress() {
   const documentElement = document.documentElement;
   const maxScrollableDistance = documentElement.scrollHeight - window.innerHeight;
-  const progress = maxScrollableDistance > 0 ? window.scrollY / maxScrollableDistance : 0;
+  const rawProgress = maxScrollableDistance > 0 ? window.scrollY / maxScrollableDistance : 0;
+  const progress = Math.max(0, Math.min(1, rawProgress));
 
   documentElement.style.setProperty("--scroll-progress", progress.toFixed(4));
 }
 
 function queueProgressUpdate() {
+  if (!progressTrackingActive) {
+    return;
+  }
+
   if (progressUpdateQueued) {
     return;
   }
@@ -54,6 +72,36 @@ function queueProgressUpdate() {
   window.requestAnimationFrame(() => {
     progressUpdateQueued = false;
     updateScrollProgress();
+  });
+}
+
+function startScrollTracking() {
+  if (progressTrackingActive) {
+    return;
+  }
+
+  progressTrackingActive = true;
+  window.addEventListener("scroll", queueProgressUpdate, { passive: true });
+  window.addEventListener("resize", queueProgressUpdate);
+  window.addEventListener("orientationchange", queueProgressUpdate);
+  queueProgressUpdate();
+}
+
+function optimizeStoryImages() {
+  document.querySelectorAll(".story-image img").forEach((image) => {
+    if (!image.getAttribute("loading")) {
+      image.loading = "lazy";
+    }
+
+    if (!image.getAttribute("decoding")) {
+      image.decoding = "async";
+    }
+
+    if (!image.getAttribute("fetchpriority")) {
+      image.setAttribute("fetchpriority", "low");
+    }
+
+    image.setAttribute("draggable", "false");
   });
 }
 
@@ -87,52 +135,62 @@ function hideMissingDayImages() {
   });
 }
 
-accessForm.addEventListener("submit", (event) => {
-  event.preventDefault();
-  const submittedAnswer = answerInput.value;
+if (accessForm && answerInput) {
+  accessForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const submittedAnswer = answerInput.value;
 
-  if (checkAccessAnswer(submittedAnswer)) {
-    unlockExperience();
-    queueProgressUpdate();
-    return;
-  }
+    if (checkAccessAnswer(submittedAnswer)) {
+      unlockExperience();
+      queueProgressUpdate();
+      return;
+    }
 
-  showError("Incorrect answer. Please try again.");
-});
+    showError("Incorrect answer. Please try again.");
+  });
+}
 
-const revealObserver = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (!entry.isIntersecting) {
-        return;
-      }
+let revealObserver = null;
+if (!prefersReducedMotion.matches && "IntersectionObserver" in window) {
+  revealObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) {
+          return;
+        }
 
-      entry.target.classList.add("visible");
-      revealObserver.unobserve(entry.target);
-    });
-  },
-  {
-    root: null,
-    threshold: 0.2,
-    rootMargin: "0px 0px -10% 0px",
-  }
-);
+        entry.target.classList.add("visible");
+        revealObserver.unobserve(entry.target);
+      });
+    },
+    {
+      root: null,
+      threshold: isMobileViewport ? 0.06 : 0.2,
+      rootMargin: isMobileViewport ? "0px 0px -2% 0px" : "0px 0px -10% 0px",
+    }
+  );
+}
 
+optimizeStoryImages();
 hideMissingDayImages();
 
-document.querySelectorAll(".reveal").forEach((element) => {
-  if (!element.hidden) {
-    revealObserver.observe(element);
-  }
-});
+const revealElements = document.querySelectorAll(".reveal");
+if (prefersReducedMotion.matches || !revealObserver) {
+  revealElements.forEach((element) => element.classList.add("visible"));
+} else {
+  revealElements.forEach((element) => {
+    if (!element.hidden) {
+      revealObserver.observe(element);
+    }
+  });
+}
 
-window.addEventListener("scroll", queueProgressUpdate, { passive: true });
-window.addEventListener("resize", queueProgressUpdate);
-window.addEventListener("orientationchange", queueProgressUpdate);
-updateScrollProgress();
+if (experience && experience.classList.contains("active")) {
+  startScrollTracking();
+}
 
 function handleSecretReveal() {
-  if (!secretMessage.hidden) {
+  if (!secretTrigger || !secretMessage || !secretMessage.hidden) {
     return;
   }
 
@@ -153,12 +211,14 @@ function handleSecretReveal() {
   secretTrigger.textContent = "PLACEHOLDER: Secret unlocked";
 }
 
-secretTrigger.addEventListener("click", handleSecretReveal);
-secretTrigger.addEventListener("keydown", (event) => {
-  if (event.key !== "Enter" && event.key !== " ") {
-    return;
-  }
+if (secretTrigger && secretMessage) {
+  secretTrigger.addEventListener("click", handleSecretReveal);
+  secretTrigger.addEventListener("keydown", (event) => {
+    if (event.key !== "Enter" && event.key !== " ") {
+      return;
+    }
 
-  event.preventDefault();
-  handleSecretReveal();
-});
+    event.preventDefault();
+    handleSecretReveal();
+  });
+}
